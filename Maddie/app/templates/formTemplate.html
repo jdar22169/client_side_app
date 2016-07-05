@@ -1,0 +1,14 @@
+<h3 ng-show="form === 'new'">ADD NEW </h3>
+<form ng-submit="submit(animal)">
+  <label>Name:
+  <input type="text" ng-model="animal.name"/>
+</label>
+<label ng-show="resource === 'frenchies'">DogWalkers Bitten:
+  <input type="text" ng-model="animal.dogWalkers_bitten"/>
+</label>
+<label ng-show="resource === 'dogwalkers'">Dogs Died:
+  <input type="text" ng-model="animal.dogs_died"/>
+</label>
+  <button ng-show="form === 'edit'" ng-click="delete(animal)">Delete</button>
+  <button type="submit">{{form}}</button>
+</form>

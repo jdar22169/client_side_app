@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Two Res API Angular</title>
+</head>
+
+<body ng-app="twoCRUDApp">
+    <div ng-controller="FrenchieController as frenchiectrl" ng-init="frenchiectrl.getFrenchies()">
+      <list-directive type="Frenchies" animals="frenchiectrl.frenchies"></list-directive>
+        <form-directive animal="{}" form="new" resource="frenchies"></form-directive>
+    </div>
+    <div ng-controller="DogwalkerController as dogwalkerctrl" ng-init="dogwalkerctrl.getDW()">
+      <list-directive type="Dogwalkers" animals="dogwalkerctrl.dogwalkers"></list-directive>
+        <form-directive animal="{}" form="new" resource="dogwalkers"></form-directive>
+    </div>
+    <div ng-controller="ErrorController as errorctrl">
+      <h1> Errors </h1>
+      <ul>
+        <li ng-repeat="error in errorctrl.errors">{{error}}</li>
+      </ul>
+<script src="./bundle.js"></script>
+</body>
+
+</html>

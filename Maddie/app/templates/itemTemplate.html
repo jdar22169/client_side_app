@@ -1,0 +1,8 @@
+<li>
+  NAME: {{animal.name}}
+  <p ng-show="type === 'Frenchies'"> DOGWALKERS BITTEN: {{animal[death]}}</p>
+   <p ng-show="type === 'Dogwalkers'">DOGS DIED: {{animal[death]}}</p>
+
+  <form-directive ng-show="type === 'Frenchies'" animal="animal" resource="frenchies" form="edit"></form-directive><br>
+  <form-directive ng-show="type === 'Dogwalkers'" animal="animal" resource="dogwalkers" form="edit"></form-directive><br>
+</li>
