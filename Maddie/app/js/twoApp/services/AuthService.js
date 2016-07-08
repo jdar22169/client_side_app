@@ -24,8 +24,6 @@ module.exports = function(app){
       })
       .then((res) => {
         token = res.data.token;
-        console.log('signin', res);
-        console.log('signin token', token);
         return res;
       });
     };
