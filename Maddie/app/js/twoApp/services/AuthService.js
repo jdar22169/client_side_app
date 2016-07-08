@@ -27,6 +27,10 @@ module.exports = function(app){
         return res;
       });
     };
+
+    service.getToken = function(){
+      return token;
+    };
     return service;
   });
 };

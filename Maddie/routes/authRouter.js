@@ -2,8 +2,8 @@
 
 const express = require('express');
 const bodyParser = require('body-parser').json();
-const User = require('../schema/user.js');
-const basicHTTP = require('./lib/basic_http.js');
+const User = require('../schema/users.js');
+const basicHTTP = require('../lib/basic_http.js');
 
 
 const authRouter = module.exports = exports = express.Router();
@@ -22,9 +22,9 @@ authRouter.post('/signup', bodyParser, (req,res,next) => {
 });
 
 authRouter.post('/signin', basicHTTP, (req,res,next) => {
-  User.findONe({username:req.auth.username}, (err,user) => {
+  User.findOne({username:req.authorization.username}, (err,user) => {
     if(err || !user) return next(new Error('Authentication Error'));
-    if(!user.comparePassword(req.auth.password)) return next(new Error('Password does not match'));
+    if(!user.comparePassword(req.authorization.password)) return next(new Error('Password does not match'));
     res.json({token:user.generateToken()});
   });
 });

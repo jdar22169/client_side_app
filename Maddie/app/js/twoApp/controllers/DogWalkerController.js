@@ -1,5 +1,5 @@
 module.exports = function(app){
-  app.controller('DogwalkerController', function($http, $location, ErrorService){
+  app.controller('DogwalkerController', function($http, $location, AuthService, ErrorService){
     this.$http = $http;
     this.dogwalkers = [];
 
@@ -11,10 +11,20 @@ module.exports = function(app){
     };
 
     this.addDW = function(dogwalker) {
-      this.$http.post('http://localhost:3000/dogwalkers', dogwalker)
+      $http({
+        method: 'POST',
+        data: dogwalker,
+        url: 'http://localhost:3000/dogwalkers',
+        headers: {
+          token: AuthService.getToken()
+        }
+      })
       .then((res) => {
         this.dogwalkers.push(res.data);
-      }, ErrorService.errorMessage('Error in Dogwalker POST'));
+      }, (err) => {
+        $location.url('/signin');
+        console.log(err);
+      });
     }.bind(this);
 
     this.deleteDW = function(dogwalker) {

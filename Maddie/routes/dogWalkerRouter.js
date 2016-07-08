@@ -3,13 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const DogWalker = require('../schema/dogWalkers.js');
+const jwtAuth = require('../lib/authToken.js');
 
 
 const dogWalkerRouter = module.exports = express.Router();
 
-dogWalkerRouter.post('/', jsonParser, (req,res,next) => {
-  return next(new Error('test error'));
-  console.log('hit dw post route');
+dogWalkerRouter.post('/', jwtAuth, jsonParser, (req,res,next) => {
   let newDogWalker = new DogWalker(req.body);
   newDogWalker.save((err,dogwalkers) => {
     if (err) return next(err);
