@@ -1,0 +1,5 @@
+<div ng-controller="DogwalkerController as dogwalkerctrl" ng-init="dogwalkerctrl.getDW()">
+  <list-directive type="Dogwalkers" animals="dogwalkerctrl.dogwalkers"></list-directive>
+    <form-directive animal="{}" form="new" resource="dogwalkers"></form-directive><br>
+    <button ng-click="dogwalkerctrl.goFrenchie()">GO TO FRENCHIES</button>
+</div>

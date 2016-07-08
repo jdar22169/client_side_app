@@ -1,0 +1,10 @@
+<main ng-controller="SignInController as signinctrl">
+<h1> Sign In </h1>
+<form ng-submit="signinctrl.signIn(signinctrl.newUser)">
+  <input type="text" ng-model="newUser.username" placeholder="username">
+  <input type="text" ng-model="newUser.password" placeholder="password">
+  <button type="submit">Sign In </button><br>
+  <button ng-click="signinctrl.goDW()">Go to Dogwalkers</button>
+  <button ng-click="signinctrl.goFrenchies()">Go to Frenchies</button>
+</form>
+</main>

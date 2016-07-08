@@ -1,0 +1,6 @@
+
+<div ng-controller="FrenchieController as frenchiectrl" ng-init="frenchiectrl.getFrenchies()">
+  <list-directive type="Frenchies" animals="frenchiectrl.frenchies"></list-directive>
+    <form-directive animal="{}" form="new" resource="frenchies"></form-directive><br>
+    <button ng-click="frenchiectrl.goDW()">GO TO DOGWALKERS </button>
+</div>
