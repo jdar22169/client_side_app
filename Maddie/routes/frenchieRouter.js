@@ -3,15 +3,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const jwtAuth = require('../lib/authToken.js');
 const Frenchie = require('../schema/frenchies.js');
 
 const frenchieRouter = module.exports = express.Router();
 
-frenchieRouter.post('/', jsonParser, (req,res) => {
+frenchieRouter.post('/', jwtAuth, jsonParser, (req,res,next) => {
   console.log('hit post route');
   let newFrenchie = new Frenchie(req.body);
   newFrenchie.save((err,frenchie) => {
-    if (err) return res.json({message:err.message});
+    if (err) next(err);
     res.json(frenchie);
   });
 
@@ -26,7 +27,7 @@ frenchieRouter.get('/', (req,res) => {
 });
 
 
-frenchieRouter.put('/', jsonParser, (req,res) => {
+frenchieRouter.put('/', jwtAuth, jsonParser, (req,res) => {
   console.log('hit the put route');
   Frenchie.findOneAndUpdate({_id:req.body._id}, req.body, (err,data) => {
     if(err) return res.json({message: err.message});
@@ -34,7 +35,7 @@ frenchieRouter.put('/', jsonParser, (req,res) => {
   });
 });
 
-frenchieRouter.delete('/:frenchie_id', (req,res) => {
+frenchieRouter.delete('/:frenchie_id', jwtAuth, (req,res) => {
   console.log('hit the delete route');
   Frenchie.findOneAndRemove({_id:req.params.frenchie_id}, null, (err,data) => {
     if(err) return res.json({message:err.message});

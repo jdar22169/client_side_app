@@ -25,7 +25,7 @@ dogWalkerRouter.get('/', (req,res,next) => {
 
 
 
-dogWalkerRouter.put('/', jsonParser, (req,res,next) => {
+dogWalkerRouter.put('/', jwtAuth, jsonParser, (req,res,next) => {
   DogWalker.findOneAndUpdate({_id:req.body._id}, req.body, (err,dogwalkers) => {
     if(err) return next(err);
     console.log(dogwalkers);
@@ -33,7 +33,7 @@ dogWalkerRouter.put('/', jsonParser, (req,res,next) => {
   });
 });
 
-dogWalkerRouter.delete('/:id', (req,res,next) => {
+dogWalkerRouter.delete('/:id', jwtAuth, (req,res,next) => {
   DogWalker.findOneAndRemove({_id:req.params.id}, null, (err,dogwalkers) => {
     if(err) return next(err);
     res.json({message: 'Successfully deleted a dogwalker', data:dogwalkers});

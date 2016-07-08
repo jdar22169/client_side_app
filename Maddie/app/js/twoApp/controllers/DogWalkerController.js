@@ -28,7 +28,13 @@ module.exports = function(app){
     }.bind(this);
 
     this.deleteDW = function(dogwalker) {
-      this.$http.delete('http://localhost:3000/dogwalkers/' + dogwalker._id)
+      $http({
+        method: 'DELETE',
+        url:'http://localhost:3000/dogwalkers/' + dogwalker._id,
+        headers: {
+          token: AuthService.getToken()
+        }
+      })
       .then(() => {
         let index = this.dogwalkers.indexOf(dogwalker);
         this.dogwalkers.splice(index, 1);
@@ -36,7 +42,14 @@ module.exports = function(app){
     }.bind(this);
 
     this.updateDW = function(dogwalker) {
-      this.$http.put('http://localhost:3000/dogwalkers', dogwalker)
+      $http({
+        method: 'PUT',
+        url: 'http://localhost:3000/dogwalkers',
+        data: dogwalker,
+        headers: {
+          token: AuthService.getToken()
+        }
+      })
       .then(() => {
         this.dogwalkers = this.dogwalkers.map(ndw => {
           return ndw._id === dogwalker._id ? dogwalker : ndw;
