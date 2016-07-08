@@ -7,6 +7,8 @@ const secret = process.env.SECRET || 'changeme';
 module.exports = function(req,res,next) {
   let token = req.headers.token;
   let tokenErr = new Error('Authorization failed');
+  let decodeErr = new Error('Decode failed');
+  let userErr = new Error(' No user');
   let decodedToken;
 
   if(!token) return next(tokenErr);
@@ -14,11 +16,11 @@ module.exports = function(req,res,next) {
   try{
     decodedToken = jwt.verify(token,secret);
   } catch(e){
-    return next(tokenErr);
+    return next(decodeErr);
   }
 
   User.findOne({_id:decodedToken._id}, (err,user) => {
-    if(!user || err) return next(tokenErr);
+    if(!user || err) return next(userErr);
     req.username = user.username;
     next();
   });
